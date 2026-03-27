@@ -14,11 +14,12 @@ import pfa.dev.organisatiojnservice.service.DepartmentService;
 @RestController
 @RequestMapping("/dep")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAnyRole('HR', 'EMPLOYEE')")
 public class DepartmentController {
     private final DepartmentService departmentService;
 
     @PostMapping(value = "/create")
+    @PreAuthorize("hasRole('HR')")
     public ResponseEntity<DepartmentDto> createDepartement(@RequestBody DepartmentDto departmentDto){
         return ResponseEntity.ok(departmentService.addDepartment(departmentDto));
     }
@@ -27,10 +28,12 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.getDepartmentById(id));
     }
     @PatchMapping(value = "/update/{id}")
+    @PreAuthorize("hasRole('HR')")
     public ResponseEntity<DepartmentDto> updateDepartement(@PathVariable Long id, @RequestBody DepartmentDto departmentDto){
         return ResponseEntity.ok(departmentService.updateDepartment(id,departmentDto));
     }
     @DeleteMapping(value = "/delete/{id}")
+    @PreAuthorize("hasRole('HR')")
     public void deleteDepartement(@PathVariable Long id){
         departmentService.deleteDepartment(id);
     }
