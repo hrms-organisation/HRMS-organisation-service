@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import pfa.dev.organisatiojnservice.dto.DepartmentSummaryResponse;
 import pfa.dev.organisatiojnservice.dto.DepartmentDto;
 import pfa.dev.organisatiojnservice.entities.Department;
 import pfa.dev.organisatiojnservice.entities.Job;
@@ -39,6 +40,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department getDepartmentById(Long id) {
         return existDep(id);
+    }
+
+    @Override
+    public DepartmentSummaryResponse getDepartmentSummaryById(Long id) {
+        Department department = existDep(id);
+        return new DepartmentSummaryResponse(department.getId(), department.getCode());
     }
 
     @Override

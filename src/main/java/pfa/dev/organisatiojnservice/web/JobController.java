@@ -1,6 +1,4 @@
 package pfa.dev.organisatiojnservice.web;
-
-import feign.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pfa.dev.organisatiojnservice.dto.JobDto;
+import pfa.dev.organisatiojnservice.dto.JobSummaryResponse;
 import pfa.dev.organisatiojnservice.entities.Job;
 import pfa.dev.organisatiojnservice.service.JobService;
 
@@ -30,6 +29,10 @@ public class JobController {
     public ResponseEntity<Job> getJobById(@PathVariable  Long id){
         return ResponseEntity.ok(jobService.getJobById(id));
 
+    }
+    @GetMapping("/{id}/summary")
+    public ResponseEntity<JobSummaryResponse> getJobSummaryById(@PathVariable Long id) {
+        return ResponseEntity.ok(jobService.getJobSummaryById(id));
     }
     @GetMapping("/get/title/{title}")
     public ResponseEntity<JobDto> getJobByTitle(@PathVariable String title){

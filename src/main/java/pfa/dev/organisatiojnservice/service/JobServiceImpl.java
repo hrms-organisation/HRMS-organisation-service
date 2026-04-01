@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pfa.dev.organisatiojnservice.dto.JobDto;
+import pfa.dev.organisatiojnservice.dto.JobSummaryResponse;
 import pfa.dev.organisatiojnservice.entities.Department;
 import pfa.dev.organisatiojnservice.entities.Job;
 import pfa.dev.organisatiojnservice.mapper.JobMapper;
@@ -53,6 +54,12 @@ public class JobServiceImpl implements JobService {
     @Override
     public Job getJobById(Long id) {
         return existJob(id);
+    }
+
+    @Override
+    public JobSummaryResponse getJobSummaryById(Long id) {
+        Job job = existJob(id);
+        return new JobSummaryResponse(job.getId(), job.getTitle());
     }
 
     @Override

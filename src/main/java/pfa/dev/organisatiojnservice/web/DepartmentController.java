@@ -1,12 +1,11 @@
 package pfa.dev.organisatiojnservice.web;
-
-import jakarta.ws.rs.GET;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pfa.dev.organisatiojnservice.dto.DepartmentSummaryResponse;
 import pfa.dev.organisatiojnservice.dto.DepartmentDto;
 import pfa.dev.organisatiojnservice.entities.Department;
 import pfa.dev.organisatiojnservice.service.DepartmentService;
@@ -26,6 +25,10 @@ public class DepartmentController {
     @GetMapping(value = "/get/{id}")
     public ResponseEntity<Department> getDepartementById(@PathVariable  Long id){
         return ResponseEntity.ok(departmentService.getDepartmentById(id));
+    }
+    @GetMapping("/{id}/summary")
+    public ResponseEntity<DepartmentSummaryResponse> getDepartmentSummaryById(@PathVariable Long id) {
+        return ResponseEntity.ok(departmentService.getDepartmentSummaryById(id));
     }
     @PatchMapping(value = "/update/{id}")
     @PreAuthorize("hasRole('HR')")
